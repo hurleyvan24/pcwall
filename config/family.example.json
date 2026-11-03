@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "household": {
+    "name": "The Sample Family",
+    "timezone": "America/New_York",
+    "school": {"kindergarten_cutoff": "09-01", "year_start_month": 8}
+  },
+  "members": [
+    {"id": "sam", "name": "Sam", "role": "kid", "birthdate": "2017-05-14", "color": "violet", "emoji": "🦋"},
+    {"id": "riley", "name": "Riley", "role": "kid", "birthdate": "2019-09-02", "color": "blue", "emoji": "🐳", "twin": "taylor"},
+    {"id": "taylor", "name": "Taylor", "role": "kid", "birthdate": "2019-09-02", "color": "green", "emoji": "🦖", "twin": "riley"},
+    {"id": "alex", "name": "Alex", "role": "parent", "color": "slate"},
+    {"id": "jordan", "name": "Jordan", "role": "parent", "color": "stone"},
+    {"id": "family", "name": "Family", "role": "shared", "color": "orange", "emoji": "🏠", "aliases": ["everyone", "us"]}
+  ],
+  "routines": [
+    {
+      "id": "morning",
+      "title": "Morning",
+      "emoji": "☀️",
+      "days": ["mon", "tue", "wed", "thu", "fri"],
+      "start": "06:30",
+      "end": "08:15",
+      "steps": [
+        {"id": "dressed", "title": "Get dressed", "emoji": "👕"},
+        {"id": "breakfast", "title": "Eat breakfast", "emoji": "🥣"},
+        {"id": "teeth", "title": "Brush teeth", "emoji": "🦷", "stars": 1},
+        {"id": "backpack", "title": "Pack your backpack", "emoji": "🎒"}
+      ]
+    },
+    {
+      "id": "after_school",
+      "title": "After school",
+      "emoji": "🎒",
+      "days": ["mon", "tue", "wed", "thu", "fri"],
+      "start": "15:30",
+      "end": "18:00",
+      "steps": [
+        {"id": "unpack", "title": "Unpack your lunchbox", "emoji": "🥪"},
+        {"id": "homework", "title": "Homework or reading", "emoji": "📚", "stars": 2},
+        {"id": "tidy", "title": "Tidy your room", "emoji": "🧹"}
+      ]
+    },
+    {
+      "id": "bedtime",
+      "title": "Bedtime",
+      "emoji": "🌙",
+      "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+      "start": "19:00",
+      "end": "20:30",
+      "steps": [
+        {"id": "bath", "title": "Bath or shower", "emoji": "🛁"},
+        {"id": "pajamas", "title": "Pajamas on", "emoji": "🌛"},
+        {"id": "teeth", "title": "Brush teeth", "emoji": "🦷"},
+        {"id": "story", "title": "Story time", "emoji": "📖"}
+      ]
+    }
+  ],
+  "overrides": {
+    "sam": {"bedtime": {"start": "19:30", "end": "21:00"}}
+  },
+  "rewards": [
+    {"id": "movie_pick", "title": "Pick the movie", "emoji": "🎬", "stars": 50},
+    {"id": "dessert_pick", "title": "Choose dessert", "emoji": "🍦", "stars": 20},
+    {"id": "stay_up_late", "title": "Stay up 30 minutes later", "emoji": "⏰", "stars": 35}
+  ],
+  "parent_pin": "1234"
+}

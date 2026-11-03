@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcwall"
+version = "0.1.0"
+description = "FamilyWall: a self-hosted family wall display service (Starlette on uvicorn)."
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "pcwall contributors" }]
+keywords = ["family", "wall", "dashboard", "starlette", "kiosk"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Home Automation",
+]
+dependencies = [
+    "starlette>=0.37",
+    "uvicorn>=0.29",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+google = [
+    "google-auth>=2.29",
+    "google-auth-oauthlib>=1.2",
+]
+dev = [
+    "pytest>=8.0",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+pcwall = "pcwall.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/pcwall/pcwall"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["pcwall", "pcwall.*"]
+
+[tool.setuptools.package-data]
+pcwall = ["static/**/*", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

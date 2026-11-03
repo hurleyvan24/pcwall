@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample RSS 2.0 feed for tests/test_news.py. Modelled on what NPR and BBC publish: a
+  channel with an atom:link self reference, Dublin Core creators, HTML wrapped in CDATA,
+  entity-escaped quotes, a title broken across lines, RFC 822 dates in several offsets,
+  a guid that is not a permalink, and one untitled item that the parser must skip.
+-->
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Example Wire &amp; Dispatch</title>
+    <link>https://wire.example.com/</link>
+    <description>Sample RSS 2.0 feed for the pcwall news reader tests.</description>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 02 Nov 2026 15:00:00 GMT</lastBuildDate>
+    <ttl>15</ttl>
+    <atom:link href="https://wire.example.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://wire.example.com/static/logo.png</url>
+      <title>Example Wire &amp; Dispatch</title>
+      <link>https://wire.example.com/</link>
+    </image>
+
+    <item>
+      <title>City council approves new library branch</title>
+      <link>https://wire.example.com/2026/11/02/library-branch</link>
+      <guid isPermaLink="true">https://wire.example.com/2026/11/02/library-branch</guid>
+      <pubDate>Mon, 02 Nov 2026 14:05:00 GMT</pubDate>
+      <dc:creator>Dana Reyes</dc:creator>
+      <description>The branch on Elm Street opens next autumn after a unanimous vote.</description>
+    </item>
+
+    <item>
+      <title><![CDATA[Markets rally as <b>tech &amp; energy</b> stocks climb]]></title>
+      <link>https://wire.example.com/2026/11/02/markets-rally</link>
+      <guid isPermaLink="false">wire-2026-11-02-markets</guid>
+      <pubDate>Mon, 02 Nov 2026 09:30:00 -0500</pubDate>
+      <dc:creator>Staff</dc:creator>
+      <description><![CDATA[<p>Stocks rose for a third day as <em>energy</em> shares led the gains.</p>]]></description>
+      <content:encoded><![CDATA[<p>Stocks rose for a third day as <em>energy</em> shares led the gains. Analysts expect the rally to continue.</p>]]></content:encoded>
+    </item>
+
+    <item>
+      <title>Weekend
+        storm   brings &quot;record&quot; rainfall   to the valley</title>
+      <link>https://wire.example.com/2026/11/01/weekend-storm</link>
+      <guid isPermaLink="false">wire-2026-11-01-storm</guid>
+      <pubDate>Sun, 01 Nov 2026 22:15:00 GMT</pubDate>
+      <description>Two days of rain set a November record at the county gauge.</description>
+    </item>
+
+    <item>
+      <title>Local bakery marks 50 years</title>
+      <link>https://wire.example.com/2026/10/31/bakery-50-years</link>
+      <pubDate>Sat, 31 Oct 2026 08:00:00 +0000</pubDate>
+      <description>Three generations have run the corner shop since 1976.</description>
+    </item>
+
+    <!-- No title: the parser skips this item rather than showing an empty headline. -->
+    <item>
+      <link>https://wire.example.com/untitled</link>
+      <pubDate>Sat, 31 Oct 2026 06:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

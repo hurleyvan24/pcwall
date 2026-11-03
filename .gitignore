@@ -1,0 +1,43 @@
+# Secrets: never commit live credentials or tokens.
+.env
+.env.*
+!.env.example
+credentials.json
+token.json
+*.token.json
+
+# Runtime state: the wall document, backups, ledger archive, cached photos.
+data/
+logs/
+*.pickle
+
+# Per-household configuration (members, pairing codes, agent keys).
+config/family.json
+config/sanitize_denylist.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Editors and OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Agent & telemetry metadata
+.agent_ledger.jsonl
+TASK_PACKET*.json
+AUDIT_VERDICT.md

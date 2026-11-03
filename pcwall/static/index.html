@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15191D">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="A little more together. Your family's routines, calendar, meals and grocery list.">
+  <title>Family Wall</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315191D'/%3E%3Cpath d='M17 15h30v9H27v9h17v9H27v10H17z' fill='%23EAC586'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/app.css">
+  <style id="home-controls-style">
+    /* Extend the wall's panel, text and theme tokens without adding a second design system. */
+    .home-controls { display: grid; gap: 28px; max-width: 1200px; }
+    .home-controls-notice { margin: 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; overflow-wrap: anywhere; }
+    .home-controls-section h2 { margin: 0 0 16px; }
+    .home-controls-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .home-controls .home-control-card { min-width: 0; padding: 22px; border-radius: 14px; }
+    .home-control-card h3 { margin: 0 0 12px; font-size: 1.2rem; }
+    .home-controls .home-control-button { min-width: 88px; min-height: 48px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 14px; color: inherit; background: transparent; font: inherit; font-weight: 600; cursor: pointer; }
+    .home-controls .home-control-button:active:not(:disabled) { transform: scale(.98); }
+    .home-controls .home-control-button:focus, .home-controls input:focus { outline: 3px solid currentColor; outline-offset: 4px; }
+    .home-controls .home-control-button:disabled { cursor: wait; opacity: .65; }
+    .home-controls .home-control-button[aria-checked="true"] { background: #EAC586; color: #15191D; border-color: #EAC586; }
+    .home-controls .home-scene { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 112px; text-align: left; }
+    .home-scene strong { font-size: 1.2rem; }
+    .home-scene span { font-size: 1rem; font-weight: 400; line-height: 1.5; }
+    .home-device-status { margin: 0 0 16px; overflow-wrap: anywhere; }
+    .home-status-badge { width: fit-content; padding: 6px 10px; border: 1px solid var(--line); border-radius: 14px; }
+    .home-brightness-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 20px; }
+    .home-brightness-label output { font-variant-numeric: tabular-nums; }
+    .home-controls .home-brightness { display: block; box-sizing: border-box; width: 100%; min-width: 48px; min-height: 48px; margin: 4px 0 0; padding: 0; cursor: pointer; }
+    @media (max-width: 767px) {
+      .home-controls-grid { grid-template-columns: minmax(0, 1fr); }
+      .home-controls .home-control-card { padding: 18px; }
+    }
+  </style>
+  <script>
+    // The stock WebView supports modules, fetch, promises and grid. These small
+    // DOM fallbacks also accommodate older kiosk wrappers without a CDN.
+    if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.webkitMatchesSelector;
+    if (!Element.prototype.closest) Element.prototype.closest = function (selector) {
+      var element = this;
+      while (element && element.nodeType === 1) {
+        if (element.matches(selector)) return element;
+        element = element.parentElement;
+      }
+      return null;
+    };
+    if (!NodeList.prototype.forEach) NodeList.prototype.forEach = Array.prototype.forEach;
+  </script>
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body>
+  <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-chores" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="m8 12 3 3 5-6M9 3v3h6V3"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v5m10-5v5M3 11h18m-13 5h2m4 0h2"/></symbol>
+    <symbol id="icon-weather" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"/><path d="M9 2v1m0 12v1M2 9h1m12 0h1M4 4l1 1m8 8 1 1M4 14l1-1m8-8 1-1M9 20h10a3 3 0 0 0 0-6 4 4 0 0 0-7-1 3.5 3.5 0 0 0-3 7Z"/></symbol>
+    <symbol id="icon-meals" viewBox="0 0 24 24"><path d="M5 3v6m3-6v6M3 3v5a3 3 0 0 0 6 0V3M6 11v10m12-18c-3 3-4 7-4 10h5m0-10v18"/></symbol>
+    <symbol id="icon-groceries" viewBox="0 0 24 24"><path d="M3 4h2l3 12h11l2-8H6m3 12h.01M18 20h.01"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></symbol>
+    <symbol id="icon-photos" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></symbol>
+  </svg>
+  <a class="skip-link" href="#content">Skip to today's view</a>
+  <div id="app" class="app-shell">
+    <aside class="sidebar">
+      <div id="sidebar-clock-weather" class="household-clock">
+        <time id="clock">--:--</time>
+        <div id="date">Today</div>
+        <div id="sidebar-weather" class="sidebar-weather" aria-label="Springfield weather">Weather unavailable</div>
+      </div>
+      <div id="sidebar-kids" class="member-chips" aria-label="Today's progress"></div>
+      <nav aria-label="Family views">
+        <button type="button" class="nav-item active" data-view="chores" aria-current="page"><svg aria-hidden="true"><use href="#icon-chores"/></svg><span>Chores</span></button>
+        <button type="button" class="nav-item" data-view="calendar"><svg aria-hidden="true"><use href="#icon-calendar"/></svg><span>Calendar</span></button>
+        <button type="button" class="nav-item" data-view="weather"><svg aria-hidden="true"><use href="#icon-weather"/></svg><span>Weather</span></button>
+        <button type="button" class="nav-item" data-view="photos"><svg aria-hidden="true"><use href="#icon-photos"/></svg><span>Photos</span></button>
+        <button type="button" class="nav-item" data-view="controls"><svg aria-hidden="true"><use href="#icon-settings"/></svg><span>Controls</span></button>
+        <button type="button" class="nav-item settings-nav" data-view="settings"><svg aria-hidden="true"><use href="#icon-settings"/></svg><span>Settings</span></button>
+      </nav>
+      <div class="sidebar-footer"><span class="connection" id="connection" role="status">Connecting…</span><button type="button" class="fullscreen-btn" data-action="fullscreen" aria-label="Toggle full screen" title="Full screen"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button><p>A little more together.</p></div>
+    </aside>
+    <div class="main-shell">
+      <div id="timer-bar" class="timer-bar" role="region" aria-label="Kitchen timers" hidden></div>
+      <div id="notes" class="notes" hidden></div>
+      <div id="news-ticker" class="news-ticker" role="region" aria-label="Family news" hidden></div>
+      <main>
+        <div class="view-heading"><div><p id="view-eyebrow" class="eyebrow">LITTLE STEPS, BIG DAYS</p><h1 id="view-title">Today's chores</h1><p id="view-subtitle" class="subtitle">Everyone has a part to play.</p></div><div id="view-tools"></div></div>
+        <div id="offline" class="offline-banner" role="status" hidden>Reconnecting… Your last update is still here.</div>
+        <section id="content" tabindex="-1" aria-labelledby="view-title"><div class="empty-state"><span class="empty-icon">☀</span><h2>Getting the family together</h2><p>Connecting to your Family Wall…</p></div></section>
+      </main>
+    </div>
+  </div>
+  <div id="screensaver" role="button" tabindex="0" aria-label="Wake Family Wall" hidden>
+    <img id="slide-a" alt=""><img id="slide-b" alt="">
+    <div id="ss-timers" class="timer-bar saver-timers" aria-hidden="true" hidden></div>
+    <div class="saver-shade"></div><div class="saver-copy"><p class="eyebrow">RIGHT HERE, TOGETHER</p><div id="saver-time"></div><div id="saver-date"></div><p id="saver-next"></p></div><span class="wake-hint">Touch anywhere to come back</span>
+  </div>
+  <div id="pairing" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pair-title" hidden>
+    <div class="sheet pair-sheet"><p class="eyebrow">WELCOME HOME</p><h2 id="pair-title">Let's pair this screen.</h2><p>Ask PCAgent for “pair the wall” or “pair my phone”, then enter your six-digit code.</p>
+      <form id="pair-form"><label class="sr-only" for="pair-code">Six-digit pairing code</label><input id="pair-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="• • • • • •" required><div id="keypad" class="keypad"></div><button id="pair-submit" class="primary" type="submit">Connect to our wall</button></form><p id="pair-error" class="error" role="alert"></p>
+    </div>
+  </div>
+  <div id="timer-ring-modal" class="timer-ring" role="alertdialog" aria-modal="true" aria-labelledby="timer-ring-label" hidden>
+    <div class="ring-sheet"><p class="eyebrow">TIMER DONE</p><h2 id="timer-ring-label"></h2>
+      <div class="ring-actions"><button type="button" class="ring-btn" data-action="plus-one">+1 Min</button><button type="button" class="ring-btn primary" data-action="dismiss">Dismiss</button></div></div>
+  </div>
+  <div id="fact-card-overlay" class="fact-card" role="status" aria-live="polite" hidden></div>
+  <div id="dialog" class="overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" hidden><div id="dialog-content" class="sheet"></div></div>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <div id="star-layer" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <noscript><p class="noscript">Enable JavaScript to use your Family Wall.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Example Daily</title>
+  <id>https://daily.example.com/</id>
+  <updated>2026-11-02T15:00:00Z</updated>
+  <link href="https://daily.example.com/atom.xml" rel="self"/>
+  <entry>
+    <title>City council approves new library branch</title>
+    <id>urn:daily:library</id>
+    <link href="https://daily.example.com/atom/library" rel="self"/>
+    <link href="https://daily.example.com/library" rel="alternate"/>
+    <published>2026-11-02T14:00:00Z</published>
+    <updated>2026-11-02T15:00:00Z</updated>
+    <summary>The council has approved the new branch.</summary>
+  </entry>
+  <entry>
+    <title type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Schools open <strong>new</strong> science labs</div></title>
+    <id>urn:daily:schools</id>
+    <link href="https://daily.example.com/schools"/>
+    <updated>2026-11-02T07:45:00-05:00</updated>
+    <summary>Students explore their new classrooms.</summary>
+  </entry>
+  <entry>
+    <title type="html">Night sky &amp;amp; stars delight observers</title>
+    <id>urn:daily:sky</id>
+    <link>https://daily.example.com/sky</link>
+    <published>2026-11-01T20:00:00Z</published>
+    <summary>A clear evening brings a view of the stars.</summary>
+  </entry>
+  <entry>
+    <id>urn:daily:untitled</id>
+    <updated>2026-11-02T16:00:00Z</updated>
+    <summary>An untitled entry should be skipped.</summary>
+  </entry>
+</feed>
