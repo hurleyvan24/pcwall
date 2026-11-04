@@ -72,8 +72,9 @@ PCWALL_MCP_TRANSPORT=streamable-http PCWALL_MCP_PORT=8771 python -m pcwall.mcp_s
 ## Claude Desktop
 
 Add the server to `claude_desktop_config.json` (Settings → Developer → Edit Config).
-Use the Python that has `pcwall` and the `mcp` package installed, and set `cwd` to the
-checkout if `pcwall` is not installed as a package.
+Use the Python that has `pcwall` and the `mcp` package installed via
+`python -m pip install -e ".[mcp]"`, and set `cwd` to the checkout if `pcwall` is not
+installed as a package. The server needs the 1.x SDK because mcp 2.x renamed `FastMCP`.
 
 ```json
 {

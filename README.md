@@ -31,7 +31,7 @@ cd pcwall
 python -m venv .venv
 .venv\Scripts\activate            # Windows
 source .venv/bin/activate         # macOS / Linux
-python -m pip install -e ".[dev,google]"
+python -m pip install -e ".[dev,google,mcp]"
 
 cp config/family.example.json config/family.json      # macOS / Linux
 copy config\family.example.json config\family.json    # Windows
